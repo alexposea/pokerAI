@@ -6,7 +6,7 @@ import helpers
 class Game:
     def __init__(self, playerNo = 1):
         self.player = Player.Player()
-        self.player.train(10000)
+        self.player.train(100000)
         self.humanPlayer = HumanPlayer.HumanPlayer()
         self.deal()
         self.player.takeChips(1)
