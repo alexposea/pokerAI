@@ -28,6 +28,19 @@ def getCards():
     cards.append(arr)
     return cards
 
+def buildDeck():
+    cards = []
+    for suit in ["S", "H", "D", "C"]:
+        for card in range(1, 14):
+            cards.append(str(card) + suit)
+    return cards
+
+def shuffleDeck():
+    cards = buildDeck()
+    for i in range(51, -1, -1):
+        j = random.randint(0, i)
+        cards[i], cards[j] = cards[j], cards[i]
+
 def shuffle(c):
     cards = c
     for i in [2, 1]:

@@ -16,11 +16,15 @@ class Window(Frame):
         label = Label(self.master, text = "Welcome to Poker! Press File -> New Game")
         label.place(x = 0, y = 0)
 
-    def initGame(self):
-        self.game = Game.Game()
-        self.drawGame("", True)
+    def initGame(self, type):
+        if type == "Kuhn":
+            self.game = Game.Game()
+            self.drawKuhn("", True)
+        elif type == "Texas":
+            self.game = Texas.Texas()
+            self.drawTexas()
 
-    def drawGame(self, history = "", fst = False):
+    def drawKuhn(self, history ="", fst = False):
         for widget in self.master.winfo_children():
             if widget is not self:
                 widget.destroy()
@@ -114,12 +118,19 @@ class Window(Frame):
             infoLabel = Label(self.master, text="Game over, you lost!");
             infoLabel.place(x=10, y=10)
 
+    def drawTexas(self):
+        for widget in self.master.winfo_children():
+            if widget is not self:
+                widget.destroy()
+        self.drawMenuBar()
+
     def drawMenuBar(self):
         menuBar = Menu(self.master)
         self.master.config(menu = menuBar)
         file = Menu(menuBar, tearoff = 0)
         newgame = Menu(file, tearoff = 0)
-        newgame.add_command(label = "1 CPU Kuhn", command = lambda: self.initGame())
+        newgame.add_command(label = "1 CPU Kuhn", command = lambda: self.initGame("Kuhn"))
+        newgame.add_command(label = "1 CPU Texas Hold'Em", command = lambda: self.initGame("Texas"))
         file.add_cascade(label = "New Game", menu = newgame)
         file.add_command(label = "Exit", command = self.exitGame)
         menuBar.add_cascade(label = "File", menu = file)
@@ -128,6 +139,6 @@ class Window(Frame):
         exit()
 
 root = Tk()
-root.geometry("300x300")
+root.geometry("500x300")
 app = Window(root)
 root.mainloop()
